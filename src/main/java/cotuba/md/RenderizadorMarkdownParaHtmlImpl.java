@@ -1,4 +1,4 @@
-package cotuba;
+package cotuba.md;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;
@@ -16,8 +16,11 @@ import org.commonmark.node.Text;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 
-public class RenderizadorMarkdownParaHtml {
+import cotuba.domain.Capitulo;
 
+public class RenderizadorMarkdownParaHtmlImpl implements RenderizadorMarkdownParaHtml {
+
+	@Override
 	public List<Capitulo> render(Path diretorioMd) {
 		List<Capitulo> capitulos = new ArrayList<>();
 

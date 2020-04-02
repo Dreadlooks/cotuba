@@ -1,4 +1,4 @@
-package cotuba;
+package cotuba.books;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,11 +13,15 @@ import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.property.AreaBreakType;
 
-public class GeradorPdf {
+import cotuba.domain.Capitulo;
+import cotuba.domain.Ebook;
 
+public class GeradorPdfImpl implements GeradorPdf {
+
+	@Override
 	public void gera(Ebook ebook) {
 		Path arquivoDeSaida = ebook.getArquivoDeSaida();
-
+		
 		try (PdfWriter writer = new PdfWriter(Files.newOutputStream(arquivoDeSaida));
 				PdfDocument pdf = new PdfDocument(writer);
 				Document pdfDocument = new Document(pdf)) {
