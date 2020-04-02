@@ -7,13 +7,16 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+
+import cotuba.application.ParametrosCotuba;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-class LeitorDeOpcoes {
+public class LeitorDeOpcoes implements ParametrosCotuba {
 
-	private Path diretorioDosMD;
+	private Path diretorioMd;
 	private String formato;
 	private Path arquivoDeSaida;
 	private boolean modoVerboso = false;
@@ -50,13 +53,13 @@ class LeitorDeOpcoes {
 		String nomeDoDiretorioDosMD = cmd.getOptionValue("dir");
 
 		if (nomeDoDiretorioDosMD != null) {
-			diretorioDosMD = Paths.get(nomeDoDiretorioDosMD);
-			if (!Files.isDirectory(diretorioDosMD)) {
+			diretorioMd = Paths.get(nomeDoDiretorioDosMD);
+			if (!Files.isDirectory(diretorioMd)) {
 				throw new RuntimeException(nomeDoDiretorioDosMD + " não é um diretório.");
 			}
 		} else {
 			Path diretorioAtual = Paths.get("");
-			diretorioDosMD = diretorioAtual;
+			diretorioMd = diretorioAtual;
 		}
 
 		String nomeDoFormatoDoEbook = cmd.getOptionValue("format");
@@ -81,20 +84,25 @@ class LeitorDeOpcoes {
 
 	}
 
-	public Path getDiretorioDosMD() {
-		return diretorioDosMD;
+	@Override
+	public Path getDiretoriosMd() {
+		// TODO Auto-generated method stub
+		return diretorioMd;
 	}
 
+	@Override
 	public String getFormato() {
+		// TODO Auto-generated method stub
 		return formato;
 	}
 
-	public Path getArquivoDeSaida() {
+	@Override
+	public Path getArquivosDeSaida() {
+		// TODO Auto-generated method stub
 		return arquivoDeSaida;
 	}
-
+	
 	public boolean isModoVerboso() {
 		return modoVerboso;
 	}
-
 }

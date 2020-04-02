@@ -2,22 +2,20 @@ package cotuba.cli;
 
 import java.nio.file.Path;
 
-import cotuba.Cotuba;
+import cotuba.application.Cotuba;
 
 public class Main {
 
 	public static void main(String[] args) {
 		LeitorDeOpcoes leitor = new LeitorDeOpcoes(args);
 
-		Path diretorioDosMD = leitor.getDiretorioDosMD();
-		String formato = leitor.getFormato();
-		Path arquivoDeSaida = leitor.getArquivoDeSaida();
+		Path arquivoDeSaida = leitor.getArquivosDeSaida();
 		boolean modoVerboso = leitor.isModoVerboso();
 
 		try {
 
 			Cotuba cotuba = new Cotuba();
-			cotuba.executa(formato, diretorioDosMD, arquivoDeSaida);
+			cotuba.executa(leitor);
 
 			System.out.println("Arquivo gerado com sucesso: " + arquivoDeSaida);
 
