@@ -1,5 +1,9 @@
 package cotuba.cli;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -9,15 +13,12 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 import cotuba.application.ParametrosCotuba;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import cotuba.domain.FormatoEbook;
 
 public class LeitorDeOpcoes implements ParametrosCotuba {
 
 	private Path diretorioMd;
-	private String formato;
+	private FormatoEbook formato;
 	private Path arquivoDeSaida;
 	private boolean modoVerboso = false;
 
@@ -65,9 +66,9 @@ public class LeitorDeOpcoes implements ParametrosCotuba {
 		String nomeDoFormatoDoEbook = cmd.getOptionValue("format");
 
 		if (nomeDoFormatoDoEbook != null) {
-			formato = nomeDoFormatoDoEbook.toLowerCase();
+			formato = 	FormatoEbook.valueOf(nomeDoFormatoDoEbook.toUpperCase());
 		} else {
-			formato = "pdf";
+			formato = FormatoEbook.PDF;
 		}
 
 		String nomeDoArquivoDeSaidaDoEbook = cmd.getOptionValue("output");
@@ -77,7 +78,7 @@ public class LeitorDeOpcoes implements ParametrosCotuba {
 				throw new RuntimeException(nomeDoArquivoDeSaidaDoEbook + " é um diretório.");
 			}
 		} else {
-			arquivoDeSaida = Paths.get("book." + formato.toLowerCase());
+			arquivoDeSaida = Paths.get("book." + formato.name().toLowerCase());
 		}
 
 		modoVerboso = cmd.hasOption("verbose");
@@ -91,12 +92,6 @@ public class LeitorDeOpcoes implements ParametrosCotuba {
 	}
 
 	@Override
-	public String getFormato() {
-		// TODO Auto-generated method stub
-		return formato;
-	}
-
-	@Override
 	public Path getArquivosDeSaida() {
 		// TODO Auto-generated method stub
 		return arquivoDeSaida;
@@ -104,5 +99,11 @@ public class LeitorDeOpcoes implements ParametrosCotuba {
 	
 	public boolean isModoVerboso() {
 		return modoVerboso;
+	}
+
+	@Override
+	public FormatoEbook getFormato() {
+		// TODO Auto-generated method stub
+		return formato;
 	}
 }
